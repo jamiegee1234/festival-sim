@@ -43,7 +43,17 @@ export class SimulationEngine extends EventEmitter {
 
   // Simulation state
   private incidents: Incident[] = [];
-  private metrics: any = {};
+  private metrics: any = {
+    safety: { incidents: 0 },
+    attendance: {},
+    financial: {},
+    operational: {},
+    weather: {},
+    performance: {},
+    venue: {},
+    technical: {},
+    compliance: {}
+  };
   private decisions: any[] = [];
   private alerts: any[] = [];
 
