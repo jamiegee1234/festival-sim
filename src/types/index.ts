@@ -445,3 +445,6 @@ export interface EmergencyProtocol {
   contacts: string[];
   escalation: string[];
 }
+
+// Re-export enhanced types for comprehensive feature support
+export * from './enhanced';
