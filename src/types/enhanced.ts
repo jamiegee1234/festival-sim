@@ -1,5 +1,16 @@
 // Enhanced Feature Types for Festival Simulator
 
+// Custom location type to avoid conflicts with DOM Location
+export interface FestivalLocation {
+  x: number;
+  y: number;
+  zone: string;
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
 // ===== ACCREDITATION & ACCESS CONTROL =====
 
 export interface AccreditationSystem {
@@ -31,7 +42,7 @@ export type BadgeType = 'Artist' | 'Crew' | 'Vendor' | 'VIP' | 'Press' | 'Securi
 
 export interface AccreditationKiosk {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   status: 'Online' | 'Offline' | 'Maintenance' | 'Error';
   queueLength: number;
   processingTime: number;
@@ -42,7 +53,7 @@ export interface AccreditationKiosk {
 
 export interface BadgeScanner {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'QR' | 'NFC' | 'Hybrid';
   status: 'Online' | 'Offline' | 'Error';
   batteryLevel: number;
@@ -60,7 +71,7 @@ export interface ScanRecord {
   badgeId: string;
   scannerId: string;
   timestamp: Date;
-  location: Location;
+  location: FestivalLocation;
   success: boolean;
   denied: boolean;
   reason?: string;
@@ -193,7 +204,7 @@ export interface AssetTracker {
   name: string;
   category: 'Roadcase' | 'Equipment' | 'Instrument' | 'Lighting' | 'Audio' | 'Other';
   owner: string;
-  location: Location;
+  location: FestivalLocation;
   status: 'Located' | 'Missing' | 'InTransit' | 'Lost';
   lastScan: Date;
   lostRisk: number;
@@ -255,14 +266,14 @@ export interface VehicleRoute {
 }
 
 export interface MarshalPoint {
-  location: Location;
+  location: FestivalLocation;
   staffId: string;
   status: 'Active' | 'Break' | 'Emergency';
   vehiclesGuided: number;
 }
 
 export interface VehicleBottleneck {
-  location: Location;
+  location: FestivalLocation;
   severity: 'Low' | 'Medium' | 'High' | 'Critical';
   cause: string;
   estimatedDelay: number;
@@ -318,7 +329,7 @@ export interface PhaseBalance {
 
 export interface BreakerPanel {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   breakers: Breaker[];
   tripChains: TripChain[];
   safeResetTiming: number;
@@ -353,7 +364,7 @@ export interface FuelTank {
   capacity: number;
   currentLevel: number;
   fuelType: string;
-  location: Location;
+  location: FestivalLocation;
   lastFill: Date;
   consumptionRate: number;
   lowLevelWarning: number;
@@ -388,7 +399,7 @@ export interface FuelPricing {
 
 export interface ScaffoldInspection {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'Daily' | 'Weekly' | 'Monthly' | 'Emergency';
   scheduled: Date;
   completed: Date;
@@ -420,7 +431,7 @@ export interface SafetySystem {
 }
 
 export interface FOHTower {
-  location: Location;
+  location: FestivalLocation;
   height: number;
   windThresholds: WindThreshold[];
   paOperations: boolean;
@@ -468,7 +479,7 @@ export interface SpillResponseSystem {
 
 export interface SpillKit {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'Oil' | 'Fuel' | 'Chemical' | 'Universal';
   capacity: number;
   lastInspection: Date;
@@ -493,7 +504,7 @@ export interface SpillInspection {
 
 export interface HazardZone {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'Oily' | 'Fuel' | 'Chemical';
   riskLevel: number;
   spillKitsRequired: number;
@@ -503,7 +514,7 @@ export interface HazardZone {
 
 export interface FirePoint {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'CO2' | 'Foam' | 'Water' | 'Dry';
   capacity: number;
   zone: string;
@@ -528,14 +539,14 @@ export interface NoisePropagation {
 }
 
 export interface PropagationPoint {
-  location: Location;
+  location: FestivalLocation;
   level: number;
   impact: number;
 }
 
 export interface SoundWall {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   height: number;
   length: number;
   material: string;
@@ -546,7 +557,7 @@ export interface SoundWall {
 
 export interface NoiseMonitor {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   currentLevel: number;
   maxLevel: number;
   violations: number;
@@ -574,7 +585,7 @@ export interface PatrolRoute {
 }
 
 export interface ResponseHeatmap {
-  location: Location;
+  location: FestivalLocation;
   averageResponseTime: number;
   incidentCount: number;
   severity: 'Low' | 'Medium' | 'High';
@@ -951,7 +962,7 @@ export interface WayfindingSystem {
 
 export interface Signage {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   type: 'Directional' | 'Informational' | 'Safety' | 'Digital';
   visibility: number;
   effectiveness: number;
@@ -961,7 +972,7 @@ export interface Signage {
 
 export interface DigitalMap {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   interactive: boolean;
   accessibility: boolean;
   usage: number;
@@ -979,7 +990,7 @@ export interface HeatResponse {
 
 export interface MistingFan {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   active: boolean;
   waterUsage: number;
   powerDraw: number;
@@ -989,7 +1000,7 @@ export interface MistingFan {
 
 export interface ShadeSail {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   size: number;
   coverage: number;
   deployed: boolean;
@@ -999,7 +1010,7 @@ export interface ShadeSail {
 
 export interface SunscreenStall {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   stock: number;
   dispensed: number;
   cost: number;
@@ -1008,7 +1019,7 @@ export interface SunscreenStall {
 
 export interface CoolingCenter {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   capacity: number;
   currentOccupancy: number;
   airConditioning: boolean;
@@ -1043,7 +1054,7 @@ export interface StrobePreset {
 
 export interface SensoryArea {
   id: string;
-  location: Location;
+  location: FestivalLocation;
   capacity: number;
   currentOccupancy: number;
   features: string[];
@@ -1053,7 +1064,7 @@ export interface SensoryArea {
 
 export interface InclusivityFeatures {
   type: 'Prayer' | 'Reflection' | 'Meditation' | 'Nursing' | 'Quiet';
-  location: Location;
+  location: FestivalLocation;
   capacity: number;
   currentOccupancy: number;
   amenities: string[];
@@ -1064,7 +1075,7 @@ export interface InclusivityFeatures {
 export interface ComplianceZone {
   id: string;
   type: 'Smoking' | 'Vaping' | 'Alcohol' | 'Food';
-  location: Location;
+  location: FestivalLocation;
   capacity: number;
   currentOccupancy: number;
   patrols: number;
@@ -1134,7 +1145,7 @@ export interface Locker {
   occupied: boolean;
   rental: number;
   keyType: 'Physical' | 'Digital' | 'RFID';
-  location: Location;
+  location: FestivalLocation;
 }
 
 export interface CloakroomService {

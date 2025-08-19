@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 import { v4 as uuidv4 } from 'uuid';
-import { SimulationSettings, Location } from '../../types';
+import { SimulationSettings } from '../../types';
 import { 
   AccreditationSystem, Badge, AccreditationKiosk, BadgeScanner, 
-  OfflineScans, ScanRecord, SecurityLevel, BadgeType 
+  OfflineScans, ScanRecord, SecurityLevel, BadgeType, FestivalLocation 
 } from '../../types/enhanced';
 
 export class AccreditationEngine extends EventEmitter {
@@ -218,7 +218,7 @@ export class AccreditationEngine extends EventEmitter {
     return Math.max(30, queueLength * 45); // 45 seconds per person minimum
   }
 
-  private checkAccess(badge: Badge, location: Location): boolean {
+  private checkAccess(badge: Badge, location: FestivalLocation): boolean {
     const securityLevel = this.system.securityLevels.find(
       level => level.level === badge.securityLevel
     );
@@ -230,7 +230,7 @@ export class AccreditationEngine extends EventEmitter {
     return securityLevel.zones.includes(zone) || badge.zones.includes(zone);
   }
 
-  private getZoneFromLocation(location: Location): string {
+  private getZoneFromLocation(location: FestivalLocation): string {
     // Simple zone mapping based on coordinates
     if (location.x < 100) return 'Public';
     if (location.x < 200) return 'VIP';
