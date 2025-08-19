@@ -697,4 +697,229 @@ export class FestivalFactory {
       }
     };
   }
+
+  // Template-specific festival creators
+  public static createElectronicFestival(): Festival {
+    const festival = this.createDefaultFestival();
+    festival.name = 'Electric Vibes Festival 2024';
+    festival.genre = 'Electronic';
+    festival.theme = 'Neon Dreams';
+    festival.capacity = 30000;
+    
+    // Adjust for electronic music festival characteristics
+    festival.artists = this.createElectronicArtists();
+    festival.schedule = this.createDefaultSchedule(festival.artists, festival.startDate);
+    
+    return festival;
+  }
+
+  public static createRockFestival(): Festival {
+    const festival = this.createDefaultFestival();
+    festival.name = 'Rock Storm Festival 2024';
+    festival.genre = 'Rock';
+    festival.theme = 'Classic Rock Revival';
+    festival.capacity = 75000;
+    
+    // Adjust for rock festival characteristics
+    festival.artists = this.createRockArtists();
+    festival.schedule = this.createDefaultSchedule(festival.artists, festival.startDate);
+    
+    return festival;
+  }
+
+  public static createIndieFestival(): Festival {
+    const festival = this.createDefaultFestival();
+    festival.name = 'Indie Sounds Festival 2024';
+    festival.genre = 'Indie';
+    festival.theme = 'Underground Culture';
+    festival.capacity = 25000;
+    
+    // Adjust for indie festival characteristics
+    festival.artists = this.createIndieArtists();
+    festival.schedule = this.createDefaultSchedule(festival.artists, festival.startDate);
+    
+    return festival;
+  }
+
+  public static createCustomFestival(festivalData: Partial<Festival>): Festival {
+    const defaultFestival = this.createDefaultFestival();
+    
+    // Merge custom data with defaults
+    return {
+      ...defaultFestival,
+      ...festivalData,
+      // Ensure required fields are preserved
+      id: festivalData.id || defaultFestival.id,
+      startDate: festivalData.startDate || defaultFestival.startDate,
+      endDate: festivalData.endDate || defaultFestival.endDate,
+      venue: { ...defaultFestival.venue, ...festivalData.venue },
+      budget: { ...defaultFestival.budget, ...festivalData.budget },
+      weather: { ...defaultFestival.weather, ...festivalData.weather },
+      schedule: festivalData.schedule || defaultFestival.schedule,
+      artists: festivalData.artists || defaultFestival.artists,
+      vendors: festivalData.vendors || defaultFestival.vendors,
+      staff: festivalData.staff || defaultFestival.staff,
+      settings: { ...defaultFestival.settings, ...festivalData.settings }
+    };
+  }
+
+  // Specialized artist creators
+  private static createElectronicArtists(): Artist[] {
+    return [
+      {
+        id: uuidv4(),
+        name: 'Circuit Break',
+        genre: 'Dubstep',
+        popularity: 0.85,
+        fee: 50000,
+        requirements: ['High-end sound system', 'Laser show', 'Fog machines'],
+        reputation: 4.7,
+        fanBase: 2500000,
+        socialMedia: {
+          instagram: 850000,
+          twitter: 320000,
+          facebook: 180000
+        },
+        riderRequirements: ['Vegan catering', 'Soundcheck 2 hours before']
+      },
+      {
+        id: uuidv4(),
+        name: 'Neon Pulse',
+        genre: 'Techno',
+        popularity: 0.78,
+        fee: 35000,
+        requirements: ['360-degree sound setup', 'LED visuals'],
+        reputation: 4.5,
+        fanBase: 1800000,
+        socialMedia: {
+          instagram: 620000,
+          twitter: 180000,
+          facebook: 120000
+        },
+        riderRequirements: ['Energy drinks', 'Late night performance slot']
+      },
+      {
+        id: uuidv4(),
+        name: 'Bass Generator',
+        genre: 'Bass Music',
+        popularity: 0.82,
+        fee: 45000,
+        requirements: ['Subwoofer array', 'Strobe lights'],
+        reputation: 4.6,
+        fanBase: 2200000,
+        socialMedia: {
+          instagram: 780000,
+          twitter: 290000,
+          facebook: 150000
+        },
+        riderRequirements: ['High-protein meals', 'Quiet green tent']
+      }
+    ];
+  }
+
+  private static createRockArtists(): Artist[] {
+    return [
+      {
+        id: uuidv4(),
+        name: 'Thunder Road',
+        genre: 'Classic Rock',
+        popularity: 0.88,
+        fee: 80000,
+        requirements: ['Large stage setup', 'Pyrotechnics', 'Marshall amplifiers'],
+        reputation: 4.8,
+        fanBase: 3200000,
+        socialMedia: {
+          instagram: 920000,
+          twitter: 450000,
+          facebook: 680000
+        },
+        riderRequirements: ['Full hot meal service', 'Security detail']
+      },
+      {
+        id: uuidv4(),
+        name: 'Steel Vengeance',
+        genre: 'Heavy Metal',
+        popularity: 0.75,
+        fee: 55000,
+        requirements: ['Heavy duty stage', 'Smoke effects', 'High-gain amplifiers'],
+        reputation: 4.4,
+        fanBase: 1900000,
+        socialMedia: {
+          instagram: 580000,
+          twitter: 220000,
+          facebook: 380000
+        },
+        riderRequirements: ['Meat-heavy catering', 'Dark backstage area']
+      },
+      {
+        id: uuidv4(),
+        name: 'Electric Storm',
+        genre: 'Alternative Rock',
+        popularity: 0.79,
+        fee: 42000,
+        requirements: ['Flexible stage lighting', 'Acoustic setup capability'],
+        reputation: 4.5,
+        fanBase: 2100000,
+        socialMedia: {
+          instagram: 710000,
+          twitter: 310000,
+          facebook: 280000
+        },
+        riderRequirements: ['Organic food options', 'Instrument tuning room']
+      }
+    ];
+  }
+
+  private static createIndieArtists(): Artist[] {
+    return [
+      {
+        id: uuidv4(),
+        name: 'Velvet Skies',
+        genre: 'Indie Folk',
+        popularity: 0.65,
+        fee: 25000,
+        requirements: ['Acoustic setup', 'Intimate lighting', 'Piano access'],
+        reputation: 4.3,
+        fanBase: 850000,
+        socialMedia: {
+          instagram: 380000,
+          twitter: 120000,
+          facebook: 85000
+        },
+        riderRequirements: ['Vegetarian catering', 'Quiet preparation space']
+      },
+      {
+        id: uuidv4(),
+        name: 'Midnight Canvas',
+        genre: 'Indie Rock',
+        popularity: 0.68,
+        fee: 30000,
+        requirements: ['Mid-size stage', 'Creative lighting', 'Multiple instrument setups'],
+        reputation: 4.4,
+        fanBase: 1200000,
+        socialMedia: {
+          instagram: 520000,
+          twitter: 180000,
+          facebook: 95000
+        },
+        riderRequirements: ['Local craft beer', 'Art supplies in green area']
+      },
+      {
+        id: uuidv4(),
+        name: 'Echo Chamber',
+        genre: 'Indie Electronic',
+        popularity: 0.71,
+        fee: 28000,
+        requirements: ['Electronic setup', 'Ambient lighting', 'Multiple screens'],
+        reputation: 4.2,
+        fanBase: 980000,
+        socialMedia: {
+          instagram: 420000,
+          twitter: 150000,
+          facebook: 72000
+        },
+        riderRequirements: ['Healthy snacks', 'Tech setup time']
+      }
+    ];
+  }
 }
